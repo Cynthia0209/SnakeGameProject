@@ -10,7 +10,7 @@
 ## Rules:
 1. score + 1 and body length + 1 when you eat the apple
 2. lose + 1 if you hit the boundry or hit the body of both yourself or the opposite
-3. round + 1 if either you or the opposite lose
+3. round + 1 if either you or the opposite loses
 4. your body length and score return 0 if you lose
 5. the winner is the snake that lose the less, tie if lose count is equal
 6. max score is the score that is the highest so far
