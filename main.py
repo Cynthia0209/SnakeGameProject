@@ -181,6 +181,13 @@ class SNAKEGAME:
                 self.round = self.round + 1
                 self.snake_one.lose = self.snake_one.lose + 1
 
+        if self.snake_two.body[0] == self.snake_one.body[0]:
+            self.reset(self.snake_one)
+            self.reset(self.snake_two)
+            self.round = self.round + 1
+            self.snake_one.lose = self.snake_one.lose + 1
+            self.snake_two.lose = self.snake_two.lose + 1
+
     # reset the given snake
     def reset(self, snake):
         x = random.randint(5, int(cell_number * 1.5) - 5)
