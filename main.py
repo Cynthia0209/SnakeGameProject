@@ -18,6 +18,7 @@ class FRUIT:
         new_apple = pygame.transform.scale(red_apple, (cell_size, cell_size))
         screen.blit(new_apple, fruit)
 
+    # update the fruit after been eaten
     def update(self):
         self.x = random.randint(5, int(cell_number * 1.5) - 1)
         self.y = random.randint(5, cell_number - 1)
@@ -70,11 +71,13 @@ class SNAKE:
         self.body = new_body
 
 
+# separate a sub screen showing scores
 def draw_sub_screen(color):
     sub_screen = pygame.Rect(screen_size_x - 10 * cell_size, 0, 2, screen_size_y)
     pygame.draw.rect(screen, color, sub_screen)
 
 
+# draw out the given score in the given color
 def draw_score(score, number, color, s):
     game_font = pygame.font.Font("something_else/go3v2.ttf", 18)
     score_text = s + " " + ": " + str(score)
@@ -105,7 +108,7 @@ class SNAKEGAME:
         self.check_eat()
         self.check_fail()
 
-    # draw the snake and the apple
+    # draw the snakes and apple and the score
     def draw(self):
         self.snake_one.draw_snake()
         self.snake_two.draw_snake()
@@ -140,7 +143,7 @@ class SNAKEGAME:
             if block == self.apple.pos:
                 self.apple.update()
 
-    # check whether the snake hit the wall or hit itself
+    # check whether the snake hit the wall or hit itself or hit each other
     def check_fail(self):
         if (len(self.snake_one.body) - 2) > self.max_score:
             self.max_score = (len(self.snake_one.body) - 1)
@@ -178,7 +181,7 @@ class SNAKEGAME:
                 self.round = self.round + 1
                 self.snake_one.lose = self.snake_one.lose + 1
 
-    # reset the game
+    # reset the given snake
     def reset(self, snake):
         x = random.randint(5, int(cell_number * 1.5) - 5)
         y = random.randint(5, cell_number - 5)
@@ -187,6 +190,7 @@ class SNAKEGAME:
         snake.direction = Vector2(0, 0)
         self.time = 200
 
+    # draw the max score so far
     def draw_max_score(self):
         game_font = pygame.font.Font("something_else/go3v2.ttf", 18)
         score_text = "max score" + ": " + str(self.max_score)
@@ -196,7 +200,7 @@ class SNAKEGAME:
         score_rec = score_surface.get_rect(center=(score_x, score_y))
         screen.blit(score_surface, score_rec)
 
-    # draw the attempt
+    # draw the number of rounds so dar
     def draw_round(self):
         game_font = pygame.font.Font("something_else/go3v2.ttf", 20)
         text = "round" + ": " + str(self.round)
@@ -206,6 +210,7 @@ class SNAKEGAME:
         rec = surface.get_rect(center=(x, y))
         screen.blit(surface, rec)
 
+    # get the winner
     def get_winner(self):
         if self.snake_one.lose == self.snake_two.lose:
             winner = "Tie"
@@ -215,6 +220,7 @@ class SNAKEGAME:
             winner = "Blue Snake"
         return winner
 
+    # draw the winner
     def draw_winner(self):
         winner = self.get_winner()
         game_font = pygame.font.Font("something_else/go3v2.ttf", 20)
@@ -231,6 +237,7 @@ class SNAKEGAME:
         else:
             draw_sub_screen((70, 130, 180))
 
+    # initialize the snake game
     def main(self):
         screen_update = pygame.USEREVENT
         pygame.display.set_caption("snake game")
